@@ -33,28 +33,33 @@ router.post('/',async(req,res)=>{
     }
  })
 
- router.put('/update/:email',async(req,res)=>{
-   try {
-    const user = await User.findOne({email:req.params.email})
-    if (!user){
-        res.status(404).send({message:"user not found"})
-    }
-    await User.findOneAndUpdate({email:req.params.email},{$set:{email:"hello@example.com"}},{new:true})
-   } catch (error) {
-    res.status(500).send({message:"error updating user"})
-   }
-
-router.delete('/:email',async(req,res)=>{
+ router.put("/update/:email", async (req, res) => {
     try {
-        const user = await User.findOne({email:req.params.email})
-        if (!user){
-            res.status(404).send({message:"user not found"})
-        }
-        await User.deleteOne({email:req.params.email})
-       } catch (error) {
-        res.status(500).send({message:"error updating user"})
-       }
-})
+      const user = await User.findOne({ email: req.params.email });
+      if (!user) {
+        return res.status(404).send({ message: "user not found" });
+      }
+      const updatedUser = await User.findOneAndUpdate(
+        { email: req.params.email },
+        { $set: { email: req.body.email } }, 
+        { new: true }
+      );
+      res.send(updatedUser);
+    } catch (error) {
+      res.status(500).send({ message: "error updating user" });
+    }
+  });
 
- })
+  router.delete("/:email", async (req, res) => {
+    try {
+      const user = await User.findOne({ email: req.params.email });
+      if (!user) {
+        return res.status(404).send({ message: "user not found" });
+      }
+      await User.deleteOne({ email: req.params.email });
+      res.send({ message: "user deleted successfully" });
+    } catch (error) {
+      res.status(500).send({ message: "error deleting user" });
+    }
+  });
 module.exports = router
