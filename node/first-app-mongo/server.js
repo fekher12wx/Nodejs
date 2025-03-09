@@ -8,7 +8,6 @@ const rendezVousRoutes = require("./routes/Rendezvous.route");
 const psychologueRoutes = require("./routes/psychologue.routes");
 const EmailService = require("./mailing/EmailService");
 
-// Initialisation correcte d'EmailService
 const emailService = new EmailService({
   host: process.env.EMAIL_HOST,
   port: parseInt(process.env.EMAIL_PORT || '587'),
