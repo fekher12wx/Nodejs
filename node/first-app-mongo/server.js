@@ -5,12 +5,14 @@ const app = express();
 const userRoutes = require("./routes/user.route");
 const AuthRoutes =require('./routes/auth.routes');
 const psychologueRoutes=require('./routes/psychologue.routes');
+const rendezVousRoutes=require('./routes/rendezVous.routes');
+
 
 app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/psychologue",psychologueRoutes);
 app.use('/auth',AuthRoutes);
-
+app.use('/rendezVous',rendezVousRoutes);
 
 
 mongoose
