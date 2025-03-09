@@ -3,6 +3,17 @@ const User = require('../models/user')
 const router = express.Router()
 const jwt=require('jsonwebtoken')
 const authentication = require('../middlewares/authMiddleware')
+const EmailService = require('../mailing/EmailService'); 
+require('dotenv').config();
+const emailService = new EmailService({
+  host: process.env.EMAIL_HOST,
+  port: parseInt(process.env.EMAIL_PORT || '587'),
+  secure: process.env.EMAIL_SECURE === 'true',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
+  }
+}); 
 
 
 
@@ -11,6 +22,7 @@ router.post('/register',async(req,res)=>{
         const{name,email,password}=req.body;
         const user= new User({name,email,password})
         await user.save()
+        await emailService.sendWelcomeEmail(email,name);
         res.status(200).send({message :"user saved successfully",user})
     } catch(error){
             res.status(400).send({message:error.message})
