@@ -4,8 +4,9 @@ require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/user.route");
 const AuthRoutes = require("./routes/auth.routes");
-const rendezVousRoutes = require("./routes/Rendezvous.route");
+const rendezVousRoutes = require("./routes/rendezVous.routes")
 const psychologueRoutes = require("./routes/psychologue.routes");
+const calendar=require("./routes/calendar.routes");
 const EmailService = require("./mailing/EmailService");
 
 const emailService = new EmailService({
@@ -23,6 +24,8 @@ app.use("/users", userRoutes);
 app.use("/psychologue", psychologueRoutes);
 app.use("/auth", AuthRoutes);
 app.use("/rendezVous", rendezVousRoutes);
+app.use("/calendar",calendar);
+
 
 mongoose
   .connect(process.env.MONGO_URI)
