@@ -2,7 +2,6 @@
 
 A comprehensive collection of Node.js examples, projects, and learning resources.
 
-![Node.js](https://via.placeholder.com/800x200/68a063/ffffff?text=Node.js+Learning+Hub)
 
 ## 📚 What's Inside
 
